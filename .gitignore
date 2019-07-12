@@ -1,0 +1,14 @@
+node_modules/
+*.xlsx
+*.xlsm
+*.csv
+*.zip
+.env
+.1.env
+slack
+ge4DailyMajor/*.*
+ge4Dashboard/*.*
+ge4MonthEnd/*.*
+ge4NetworkStatus/*.*
+ge4UnixServerDetails/*.*
+config_grafana
