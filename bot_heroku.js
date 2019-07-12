@@ -6,10 +6,16 @@ var path = require('path')
 const { exec } = require('child_process');
 var cron = require("node-cron");
 var request = require("request");
+const pptrFirefox = require('puppeteer');
 
-cron.schedule('1-5 * * * *', () => {
+cron.schedule('*/5 * * * *', async () => {
     console.log('pingando....')
-    request("https://ism-grafana.herokuapp.com");
+    var browser, page;
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
+    // await page.goto("https://ism-grafana.herokuapp.com");
+    await page.goto("https://ismmetrics.herokuapp.com/");
+    browser.close();
 });
 
 // Configure your bot.

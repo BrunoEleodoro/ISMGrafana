@@ -5,9 +5,6 @@ var request = require('request');
 var cron = require("node-cron")
 var browser, page;
 
-cron.schedule('1-5 * * * *', () => {
-    request("https://ismmetrics.herokuapp.com/");
-});
 
 const URL_GRAFANA = process.env.URL_GRAFANA
 const USERNAME_GRAFANA = process.env.USERNAME_GRAFANA
