@@ -6,9 +6,9 @@ var path = require('path')
 const { exec } = require('child_process');
 
 // Configure your bot.
-var slackController = Botkit.slackbot({ clientSigningSecret: process.env.SLACK_SIGNING_SECRET });
+var slackController = Botkit.slackbot({ clientSigningSecret: process.env.GRAFANA_SLACK_SIGNING_SECRET });
 var slackBot = slackController.spawn({
-    token: process.env.SLACK_TOKEN
+    token: process.env.GRAFANA_SLACK_TOKEN
 });
 // slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
 slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event', 'file_shared'], function (bot, message) {
