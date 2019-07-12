@@ -12,3 +12,4 @@ ge4MonthEnd/*.png
 ge4NetworkStatus/*.png
 ge4UnixServerDetails/*.png
 config_grafana
+slack_prod

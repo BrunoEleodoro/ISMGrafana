@@ -1,14 +1,20 @@
 require('dotenv').config({ path: 'config_grafana' })
 const pptrFirefox = require('puppeteer');
 var Jimp = require('jimp');
+var request = require('request');
+var cron = require("node-cron")
 var browser, page;
+
+cron.schedule('1-5 * * * *', () => {
+    request("https://ismmetrics.herokuapp.com/");
+});
 
 const URL_GRAFANA = process.env.URL_GRAFANA
 const USERNAME_GRAFANA = process.env.USERNAME_GRAFANA
 const PASSWORD_GRAFANA = process.env.PASSWORD_GRAFANA
 
 async function main() {
-    browser = await pptrFirefox.launch({args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
 
     await page.setViewport({ width: 1466, height: 1100 });
@@ -19,7 +25,7 @@ async function main() {
         document.querySelectorAll('button')[0].click()
         return "foi"
     })
-    
+
     await page.waitFor(1000)
 
     console.log('ge4Dashboard...')
