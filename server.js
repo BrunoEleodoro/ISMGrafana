@@ -1,5 +1,5 @@
 require('dotenv').config({ path: 'config_grafana' })
-const pptrFirefox = require('puppeteer');
+const pptrFirefox = require('puppeteer-firefox');
 var Jimp = require('jimp');
 var browser, page;
 
