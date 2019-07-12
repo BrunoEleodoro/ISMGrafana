@@ -4,7 +4,7 @@
   "description": "Crawler to log into the grafana portal and take screenshots from the graphs and send to slack",
   "main": "server.js",
   "scripts": {
-    "start":"node bot.js",
+    "start": "node bot_heroku.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bruno Eleodoro Roza and Gabriel Siqueira",
@@ -15,6 +15,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "jimp": "^0.6.4",
+    "puppeteer": "^1.18.1",
     "puppeteer-firefox": "^0.5.0"
   }
 }
