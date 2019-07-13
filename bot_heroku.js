@@ -18,78 +18,116 @@ cron.schedule('*/20 * * * *', async () => {
     browser.close();
 });
 
+
 // Configure your bot.
 var slackController = Botkit.slackbot({ clientSigningSecret: process.env.GRAFANA_SLACK_SIGNING_SECRET });
 var slackBot = slackController.spawn({
     token: process.env.GRAFANA_SLACK_TOKEN
 });
-// slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
-slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event', 'file_shared'], function (bot, message) {
-    slackController.log('Slack message received');
-    // console.log('message', message);
-    // bot.reply(message, "I'm here :) :hello-bear:");
-    if (message.text == "collect") {
-        bot.replyInThread(message, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:')
-        exec('node server.js', (err, stdout, stderr) => {
-            console.log(stderr);
-            console.log(stdout);
-            bot.replyInThread(message, 'All the screenshots is now done, now just type my name and "reports" to receive all the screenshots')
+
+cron.schedule('*/30 * * * *', async () => {
+    console.log('processing...');
+    slackBot.say({
+        text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
+        channel: 'GLBRP08AJ'
+    }, (err, any) => {
+        slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
+            exec('node server.js', (err, stdout, stderr) => {
+                console.log(stderr);
+                console.log(stdout);
+                uploadTheFiles(slackBot, res.channel, res.message.thread_ts, res, ["ge4Dashboard/ge4-dashboard.png",
+                    "ge4MonthEnd/ge4Month-Infra.png",
+                    "ge4MonthEnd/ge4Month-Checklist.png",
+                    "ge4MonthEnd/ge4Month-Oracle.png",
+                    "ge4MonthEnd/ge4Month-HanaHa4.png",
+                    "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
+                    "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
+                    "ge4DailyMajor/ge4DailyMajor-pn4.png",
+                    "ge4DailyMajor/ge4DailyMajor-nf4.png",
+                    "ge4DailyMajor/ge4DailyMajor-ge4.png",
+                    "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
+                    "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
+                    "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
+                    "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
+                    "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
+                ])
+            })
         })
-    }
+    });
+})
 
-    if (message.text.includes("reports")) {
-        // bot.replyInThread(message, 'Here are the reports')
-        uploadTheFiles(bot, message, ["ge4Dashboard/ge4-dashboard.png",
-            "ge4MonthEnd/ge4Month-Infra.png",
-            "ge4MonthEnd/ge4Month-Checklist.png",
-            "ge4MonthEnd/ge4Month-Oracle.png",
-            "ge4MonthEnd/ge4Month-HanaHa4.png",
-            "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
-            "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
-            "ge4DailyMajor/ge4DailyMajor-pn4.png",
-            "ge4DailyMajor/ge4DailyMajor-nf4.png",
-            "ge4DailyMajor/ge4DailyMajor-ge4.png",
-            "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
-            "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
-            "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
-            "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
-            "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
-            "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
-            "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
-            "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
-            "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
-            "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
-        ])
-    }
+// slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
+// slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event', 'file_shared'], function (bot, message) {
+//     slackController.log('Slack message received');
+//     // console.log('message', message);
+//     // bot.reply(message, "I'm here :) :hello-bear:");
+//     if (message.text == "collect") {
+//         bot.replyInThread(message, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:')
+//         exec('node server.js', (err, stdout, stderr) => {
+//             console.log(stderr);
+//             console.log(stdout);
+//             bot.replyInThread(message, 'All the screenshots is now done, now just type my name and "reports" to receive all the screenshots')
+//         })
+//     }
+
+//     if (message.text.includes("reports")) {
+//         // bot.replyInThread(message, 'Here are the reports')
+//         uploadTheFiles(bot, message, ["ge4Dashboard/ge4-dashboard.png",
+//             "ge4MonthEnd/ge4Month-Infra.png",
+//             "ge4MonthEnd/ge4Month-Checklist.png",
+//             "ge4MonthEnd/ge4Month-Oracle.png",
+//             "ge4MonthEnd/ge4Month-HanaHa4.png",
+//             "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
+//             "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
+//             "ge4DailyMajor/ge4DailyMajor-pn4.png",
+//             "ge4DailyMajor/ge4DailyMajor-nf4.png",
+//             "ge4DailyMajor/ge4DailyMajor-ge4.png",
+//             "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
+//             "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
+//             "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
+//             "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
+//             "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
+//         ])
+//     }
 
 
-    // exec('chmod -R 777 criar_planilha.js', (err, stdout, stderr) => { console.log(stderr) });
-    // exec('chmod -R 777 bot.js', (err, stdout, stderr) => { console.log(stderr) });
-    // exec('chmod -R 777 *.*', (err, stdout, stderr) => { console.log(stderr) });
-    // bot.send("Shutting down VM #34324....", "fdsafdsafdsa");
-    // bot.send("Shutting down VM #34324....")
-    // var slackMessage = 
-    // middleware.interpret(bot, message, function() {
-    //   if (message.watsonError) {
-    //     console.log(message.watsonError);
-    //     bot.reply(message, message.watsonError.description || message.watsonError.error);
-    //   } else if (message.watsonData && 'output' in message.watsonData) {
-    //     bot.reply(message, "fdsafdsafdsa34243kj2n4jkn43jkndjksnfdsakjnfdjksanfkjdsn");
-    //   } else {
-    //     console.log('Error: received message in unknown format. (Is your connection with Watson Assistant up and running?)');
-    //     bot.reply(message, 'I\'m sorry, but for technical reasons I can\'t respond to your message');
-    //   }
-});
+//     // exec('chmod -R 777 criar_planilha.js', (err, stdout, stderr) => { console.log(stderr) });
+//     // exec('chmod -R 777 bot.js', (err, stdout, stderr) => { console.log(stderr) });
+//     // exec('chmod -R 777 *.*', (err, stdout, stderr) => { console.log(stderr) });
+//     // bot.send("Shutting down VM #34324....", "fdsafdsafdsa");
+//     // bot.send("Shutting down VM #34324....")
+//     // var slackMessage = 
+//     // middleware.interpret(bot, message, function() {
+//     //   if (message.watsonError) {
+//     //     console.log(message.watsonError);
+//     //     bot.reply(message, message.watsonError.description || message.watsonError.error);
+//     //   } else if (message.watsonData && 'output' in message.watsonData) {
+//     //     bot.reply(message, "fdsafdsafdsa34243kj2n4jkn43jkndjksnfdsakjnfdjksanfkjdsn");
+//     //   } else {
+//     //     console.log('Error: received message in unknown format. (Is your connection with Watson Assistant up and running?)');
+//     //     bot.reply(message, 'I\'m sorry, but for technical reasons I can\'t respond to your message');
+//     //   }
+// });
 
-async function uploadTheFiles(bot, message, images) {
+async function uploadTheFiles(bot, channel, thread_ts, message, images) {
     var i = 0;
     while (i < images.length) {
         bot.api.files.upload({
             file: fs.createReadStream(images[i]),
             filename: images[i],
             filetype: "png",
-            channels: message.channel,
-            thread_ts: message.thread_ts
+            channels: channel,
+            thread_ts: thread_ts,
         }, function (err, res) {
             if (err) {
                 console.log("Failed to add file :(", err)
@@ -99,6 +137,25 @@ async function uploadTheFiles(bot, message, images) {
         i++;
     }
 }
+
+// async function uploadTheFiles(bot, message, images) {
+//     var i = 0;
+//     while (i < images.length) {
+//         bot.api.files.upload({
+//             file: fs.createReadStream(images[i]),
+//             filename: images[i],
+//             filetype: "png",
+//             channels: message.channel,
+//             thread_ts: message.thread_ts
+//         }, function (err, res) {
+//             if (err) {
+//                 console.log("Failed to add file :(", err)
+//                 bot.reply(message, 'Sorry, there has been an error: ' + err)
+//             }
+//         })
+//         i++;
+//     }
+// }
 // slackController.on('file_shared', function (bot, message) {
 
 //     bot.api.files.info({ file: message.file_id }, (err, response) => {
