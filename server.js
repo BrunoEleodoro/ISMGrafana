@@ -27,19 +27,34 @@ async function main() {
 
     console.log('ge4Dashboard...')
     await ge4Dashboard(page)
+    
+    await browser.close();
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
 
     console.log('ge4MonthEnd...')
     await ge4MonthEnd(page)
 
-    // console.log('ge4DailyMajor...')
-    // await ge4DailyMajor(page)
+    await browser.close();
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
 
-    // console.log('ge4UnixServerDetails...');
-    // await ge4UnixServerDetails(page)
+    console.log('ge4DailyMajor...')
+    await ge4DailyMajor(page)
 
-    // console.log('ge4NetworkStatus...');
-    // await ge4NetworkStatus(page)
+    await browser.close();
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
 
+    console.log('ge4UnixServerDetails...');
+    await ge4UnixServerDetails(page)
+
+    await browser.close();
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
+
+    console.log('ge4NetworkStatus...');
+    await ge4NetworkStatus(page)
 
     await browser.close();
 }
