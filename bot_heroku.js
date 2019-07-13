@@ -45,7 +45,20 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event'
             "ge4MonthEnd/ge4Month-Oracle.png",
             "ge4MonthEnd/ge4Month-HanaHa4.png",
             "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
-            "ge4MonthEnd/ge4Month-HortoCoreSwitch.png"
+            "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
+            "ge4DailyMajor/ge4DailyMajor-pn4.png",
+            "ge4DailyMajor/ge4DailyMajor-nf4.png",
+            "ge4DailyMajor/ge4DailyMajor-ge4.png",
+            "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
+            "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
+            "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
+            "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
+            "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
+            "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
+            "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
+            "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
+            "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
+            "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
         ])
     }
 

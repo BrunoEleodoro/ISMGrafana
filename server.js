@@ -10,10 +10,7 @@ const URL_GRAFANA = process.env.URL_GRAFANA
 const USERNAME_GRAFANA = process.env.USERNAME_GRAFANA
 const PASSWORD_GRAFANA = process.env.PASSWORD_GRAFANA
 
-async function main() {
-    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
-    page = await browser.newPage();
-
+async function loginGrafana(page) {
     await page.setViewport({ width: 1466, height: 1100 });
     await page.goto(URL_GRAFANA + '/login');
     await page.type("[name='username']", USERNAME_GRAFANA)
@@ -22,15 +19,23 @@ async function main() {
         document.querySelectorAll('button')[0].click()
         return "foi"
     })
+    return "foi"
+}
+async function main() {
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    page = await browser.newPage();
+
+    await loginGrafana(page)
 
     await page.waitFor(1000)
 
     console.log('ge4Dashboard...')
     await ge4Dashboard(page)
-    
+
     await browser.close();
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
+    await loginGrafana(page)
 
     console.log('ge4MonthEnd...')
     await ge4MonthEnd(page)
@@ -38,6 +43,7 @@ async function main() {
     await browser.close();
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
+    await loginGrafana(page)
 
     console.log('ge4DailyMajor...')
     await ge4DailyMajor(page)
@@ -45,6 +51,7 @@ async function main() {
     await browser.close();
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
+    await loginGrafana(page)
 
     console.log('ge4UnixServerDetails...');
     await ge4UnixServerDetails(page)
@@ -52,6 +59,7 @@ async function main() {
     await browser.close();
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
+    await loginGrafana(page)
 
     console.log('ge4NetworkStatus...');
     await ge4NetworkStatus(page)
