@@ -29,7 +29,7 @@ cron.schedule('*/30 * * * *', async () => {
     console.log('processing...');
     slackBot.say({
         text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
-        channel: 'GLBRP08AJ'
+        channel: 'GKN6WV98B'
     }, (err, any) => {
         slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
             exec('node server.js', (err, stdout, stderr) => {
