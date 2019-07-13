@@ -36,6 +36,7 @@ async function main() {
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
+    await page.waitFor(1000)
 
     console.log('ge4MonthEnd...')
     await ge4MonthEnd(page)
@@ -44,7 +45,8 @@ async function main() {
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
-
+    await page.waitFor(1000)
+    
     console.log('ge4DailyMajor...')
     await ge4DailyMajor(page)
 
@@ -52,7 +54,8 @@ async function main() {
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
-
+    await page.waitFor(1000)
+    
     console.log('ge4UnixServerDetails...');
     await ge4UnixServerDetails(page)
 
@@ -60,6 +63,7 @@ async function main() {
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
+    await page.waitFor(1000)
 
     console.log('ge4NetworkStatus...');
     await ge4NetworkStatus(page)
