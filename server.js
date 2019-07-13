@@ -31,14 +31,14 @@ async function main() {
     console.log('ge4MonthEnd...')
     await ge4MonthEnd(page)
 
-    console.log('ge4DailyMajor...')
-    await ge4DailyMajor(page)
+    // console.log('ge4DailyMajor...')
+    // await ge4DailyMajor(page)
 
-    console.log('ge4UnixServerDetails...');
-    await ge4UnixServerDetails(page)
+    // console.log('ge4UnixServerDetails...');
+    // await ge4UnixServerDetails(page)
 
-    console.log('ge4NetworkStatus...');
-    await ge4NetworkStatus(page)
+    // console.log('ge4NetworkStatus...');
+    // await ge4NetworkStatus(page)
 
 
     await browser.close();
@@ -46,7 +46,7 @@ async function main() {
 
 async function ge4Dashboard(page) {
     await page.goto(URL_GRAFANA + '/d/r48TsDGZk/ge4-dashboard?refresh=1m&orgId=1');
-    await page.waitFor(5000)
+    await page.waitFor(10000)
     await page.screenshot({ path: 'ge4Dashboard/ge4-dashboard.png' });
     return true;
 }
@@ -54,7 +54,7 @@ async function ge4Dashboard(page) {
 async function ge4MonthEnd(page) {
     await page.goto(URL_GRAFANA + '/d/AbCPWY9ik/gerdau-month-end-dashboard-v1?refresh=5m&orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
-    await page.waitFor(12000)
+    await page.waitFor(20000)
     await page.screenshot({ path: 'ge4MonthEnd/ge4bruto.png' });
 
     Jimp.read('ge4MonthEnd/ge4bruto.png', (err, lenna) => {
