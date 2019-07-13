@@ -5,10 +5,13 @@ var request = require('request');
 var cron = require("node-cron")
 var browser, page;
 
-
 const URL_GRAFANA = process.env.URL_GRAFANA
 const USERNAME_GRAFANA = process.env.USERNAME_GRAFANA
 const PASSWORD_GRAFANA = process.env.PASSWORD_GRAFANA
+
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 
 async function loginGrafana(page) {
     await page.setViewport({ width: 1466, height: 1100 });
@@ -33,6 +36,7 @@ async function main() {
     await ge4Dashboard(page)
 
     await browser.close();
+    await sleep(10000);
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
@@ -42,24 +46,27 @@ async function main() {
     await ge4MonthEnd(page)
 
     await browser.close();
+    await sleep(10000);
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
     await page.waitFor(1000)
-    
+
     console.log('ge4DailyMajor...')
     await ge4DailyMajor(page)
 
     await browser.close();
+    await sleep(10000);
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
     await page.waitFor(1000)
-    
+
     console.log('ge4UnixServerDetails...');
     await ge4UnixServerDetails(page)
 
     await browser.close();
+    await sleep(10000);
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
     await loginGrafana(page)
@@ -137,7 +144,6 @@ async function ge4MonthEnd(page) {
 async function ge4DailyMajor(page) {
     await page.goto(URL_GRAFANA + '/d/N4fCZ_kZz/daily-major-environments-overview?orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
-    await page.waitFor(2000)
     await page.evaluate(() => {
         while (document.querySelectorAll('[class="fa fa-chevron-right"]').length > 0) {
             document.querySelectorAll('[class="fa fa-chevron-right"]')[0].click()
@@ -186,7 +192,6 @@ async function ge4DailyMajor(page) {
 async function ge4UnixServerDetails(page) {
     await page.goto(URL_GRAFANA + '/d/c8zN_bZWk/unix-server-details?refresh=15m&orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
-    await page.waitFor(2000)
     await page.evaluate(() => {
         while (document.querySelectorAll('[class="fa fa-chevron-right"]').length > 0) {
             document.querySelectorAll('[class="fa fa-chevron-right"]')[0].click()
@@ -226,7 +231,6 @@ async function ge4UnixServerDetails(page) {
 async function ge4NetworkStatus(page) {
     await page.goto(URL_GRAFANA + '/d/66UW_bWWz/network-status?refresh=5s&orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
-    await page.waitFor(2000)
     await page.evaluate(() => {
         while (document.querySelectorAll('[class="fa fa-chevron-right"]').length > 0) {
             document.querySelectorAll('[class="fa fa-chevron-right"]')[0].click()
