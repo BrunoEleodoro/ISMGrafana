@@ -28,7 +28,7 @@ var slackBot = slackController.spawn({
     token: process.env.GRAFANA_SLACK_TOKEN
 });
 
-cron.schedule('0 21,6,14 01,02,03,04,05,06,07,19,20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
+cron.schedule('0 21,6,14 01,02,03,04,05,06,07,20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
     console.log('processing...');
     slackBot.say({
         text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
