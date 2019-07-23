@@ -1,0 +1,5 @@
+Initializing Botkit v0.6.21
+info: ** No persistent storage method specified! Data may be lost when process shuts down.
+Client server listening on port 5000
+notice: ** BOT ID: bluesightgrafana ...attempting to connect to RTM!
+notice: RTM websocket opened

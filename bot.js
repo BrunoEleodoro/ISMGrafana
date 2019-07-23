@@ -68,7 +68,19 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event'
             bot.replyInThread(message, 'All the screenshots is now done, now just type my name and "reports" to receive all the screenshots')
         })
     }
-
+    if(message.text.includes("/")) {
+        //compliancealert subscribe c_code:sos application:vault
+        var partes = message.text.split(" ");
+        var i = 0;
+        while( i < partes.length) {
+            bot.reply(
+                message,
+                partes[i]
+            )
+            i++;
+        }
+        
+    }
     if (message.text.includes("reports")) {
         // bot.replyInThread(message, 'Here are the reports')
         uploadTheFiles(bot, message, ["ge4Dashboard/ge4-dashboard.png",

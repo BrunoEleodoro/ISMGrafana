@@ -13,8 +13,8 @@ cron.schedule('*/20 * * * *', async () => {
     var browser, page;
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
-    // await page.goto("https://ism-grafana.herokuapp.com");
-    await page.goto("https://ismmetrics.herokuapp.com/");
+    await page.goto("https://ism-grafana.herokuapp.com");
+    // await page.goto("https://ismmetrics.herokuapp.com/");
     browser.close();
 }, {
         scheduled: true,
