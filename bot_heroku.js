@@ -31,7 +31,7 @@ var slackBot = slackController.spawn({
 cron.schedule('0 21,6,14 01,02,03,04,05,06,07,20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
     console.log('processing...');
     slackBot.say({
-        text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
+        text: "Gerdau Reports " + new Date().toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }),
         channel: 'GC0CCAJFM'
     }, (err, any) => {
         slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
@@ -45,19 +45,23 @@ cron.schedule('0 21,6,14 01,02,03,04,05,06,07,20,21,22,23,24,25,26,27,28,29,30 *
                     "ge4MonthEnd/ge4Month-HanaHa4.png",
                     "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
                     "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
+                    "ge4MonthEnd/ge4bruto.png",
+                    "ge4DailyMajor/ge4DailyMajor-b7p.png",
                     "ge4DailyMajor/ge4DailyMajor-pn4.png",
                     "ge4DailyMajor/ge4DailyMajor-nf4.png",
                     "ge4DailyMajor/ge4DailyMajor-ge4.png",
                     "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
+                    "ge4DailyMajor/ge4DailyMajorbruto.png",
                     "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
                     "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
                     "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
+                    "ge4UnixServerDetails/ge4UnixServerDetailsbruto.png",
                     "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
                     "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
                     "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
                     "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
                     "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
+                    "ge4NetworkStatus/ge4NetworkStatusbruto.png"
                 ])
             })
         })

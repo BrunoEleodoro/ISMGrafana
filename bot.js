@@ -14,46 +14,50 @@ var slackBot = slackController.spawn({
     token: process.env.SLACK_TOKEN
 });
 
-cron.schedule('0 21,6,14 20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
-    console.log('processing...');
-    slackBot.say({
-        text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
-        channel: 'GLBRP08AJ'
-        // channel: 'GC0CCAJFM'
-    }, (err, any) => {
-        slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
-            exec('node server.js', (err, stdout, stderr) => {
-                console.log(stderr);
-                console.log(stdout);
-                uploadTheFiles(slackBot, res.channel, res.message.thread_ts, res, ["ge4Dashboard/ge4-dashboard.png",
-                    "ge4MonthEnd/ge4Month-Infra.png",
-                    "ge4MonthEnd/ge4Month-Checklist.png",
-                    "ge4MonthEnd/ge4Month-Oracle.png",
-                    "ge4MonthEnd/ge4Month-HanaHa4.png",
-                    "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
-                    "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
-                    "ge4DailyMajor/ge4DailyMajor-pn4.png",
-                    "ge4DailyMajor/ge4DailyMajor-nf4.png",
-                    "ge4DailyMajor/ge4DailyMajor-ge4.png",
-                    "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
-                    "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
-                    "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
-                    "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
-                    "ge4NetworkStatus/ge4NetworkStatus-tsmlatency.png"
-                ])
-            })
+// cron.schedule('0 21,6,14 20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
+console.log('processing...');
+slackBot.say({
+    text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
+    channel: 'GLBRP08AJ'
+    // channel: 'GC0CCAJFM'
+}, (err, any) => {
+    slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
+        exec('node server.js', (err, stdout, stderr) => {
+            console.log(stderr);
+            console.log(stdout);
+            uploadTheFiles(slackBot, res.channel, res.message.thread_ts, res, ["ge4Dashboard/ge4-dashboard.png",
+                "ge4MonthEnd/ge4Month-Infra.png",
+                "ge4MonthEnd/ge4Month-Checklist.png",
+                "ge4MonthEnd/ge4Month-Oracle.png",
+                "ge4MonthEnd/ge4Month-HanaHa4.png",
+                "ge4MonthEnd/ge4MonthEnd-stoBrSoftlayerConnectivity.png",
+                "ge4MonthEnd/ge4Month-HortoCoreSwitch.png",
+                "ge4MonthEnd/ge4bruto.png",
+                "ge4DailyMajor/ge4DailyMajor-b7p.png",
+                "ge4DailyMajor/ge4DailyMajor-pn4.png",
+                "ge4DailyMajor/ge4DailyMajor-nf4.png",
+                "ge4DailyMajor/ge4DailyMajor-ge4.png",
+                "ge4DailyMajor/ge4DailyMajor-hana_ha4.png",
+                "ge4DailyMajor/ge4DailyMajorbruto.png",
+                "ge4UnixServerDetails/ge4UnixServerDetails-diskio.png",
+                "ge4UnixServerDetails/ge4UnixServerDetails-filesystem.png",
+                "ge4UnixServerDetails/ge4UnixServerDetails-utilization.png",
+                "ge4UnixServerDetails/ge4UnixServerDetailsbruto.png",
+                "ge4NetworkStatus/ge4NetworkStatus-tunnelstatus.png",
+                "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudSAO01.png",
+                "ge4NetworkStatus/ge4NetworkStatus-fromIBMCloudWDC04.png",
+                "ge4NetworkStatus/ge4NetworkStatus-hortorouters.png",
+                "ge4NetworkStatus/ge4NetworkStatus-twslatency.png",
+                "ge4NetworkStatus/ge4NetworkStatusbruto.png"
+            ])
         })
+    })
 
-    });
-}, {
-    scheduled: true,
-    timezone: "America/Sao_Paulo"
-  })
+});
+// }, {
+//         scheduled: true,
+//         timezone: "America/Sao_Paulo"
+//     })
 
 // slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
 slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event', 'file_shared'], function (bot, message) {
@@ -68,18 +72,18 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'other_event'
             bot.replyInThread(message, 'All the screenshots is now done, now just type my name and "reports" to receive all the screenshots')
         })
     }
-    if(message.text.includes("/")) {
+    if (message.text.includes("/")) {
         //compliancealert subscribe c_code:sos application:vault
         var partes = message.text.split(" ");
         var i = 0;
-        while( i < partes.length) {
+        while (i < partes.length) {
             bot.reply(
                 message,
                 partes[i]
             )
             i++;
         }
-        
+
     }
     if (message.text.includes("reports")) {
         // bot.replyInThread(message, 'Here are the reports')

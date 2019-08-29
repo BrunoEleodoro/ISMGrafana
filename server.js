@@ -86,7 +86,7 @@ async function main() {
 }
 
 async function ge4Dashboard(page) {
-    await page.goto(URL_GRAFANA + '/d/r48TsDGZk/ge4-dashboard?refresh=1m&orgId=1');
+    await page.goto(URL_GRAFANA + '/d/BxB9WRDZk/ge4-dashboard');
     await page.waitFor(10000)
     await page.screenshot({ path: 'ge4Dashboard/ge4-dashboard.png' });
     return true;
@@ -95,6 +95,13 @@ async function ge4Dashboard(page) {
 async function ge4MonthEnd(page) {
     await page.goto(URL_GRAFANA + '/d/AbCPWY9ik/gerdau-month-end-dashboard-v1?refresh=5m&orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
+    await page.waitFor(2000)
+    await page.evaluate(() => {
+        while (document.querySelectorAll('[class="fa fa-chevron-right"]').length > 0) {
+            document.querySelectorAll('[class="fa fa-chevron-right"]')[0].click()
+        }
+        return "foi"
+    })
     await page.waitFor(20000)
     await page.screenshot({ path: 'ge4MonthEnd/ge4bruto.png' });
 
@@ -149,7 +156,7 @@ async function ge4MonthEnd(page) {
 }
 
 async function ge4DailyMajor(page) {
-    await page.goto(URL_GRAFANA + '/d/N4fCZ_kZz/daily-major-environments-overview?orgId=1');
+    await page.goto(URL_GRAFANA + '/d/OpM_ZRvWk/daily-major-environments-overview?refresh=15m&orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
     await page.waitFor(2000)
     await page.evaluate(() => {
@@ -164,7 +171,15 @@ async function ge4DailyMajor(page) {
     Jimp.read('ge4DailyMajor/ge4DailyMajorbruto.png', (err, lenna) => {
         if (err) throw err;
         lenna
-            .crop(70, 70, 1400, 670)
+            .crop(70, 70, 1400, 600)
+            .quality(100)
+            .write('ge4DailyMajor/ge4DailyMajor-b7p.png');
+    });
+
+    Jimp.read('ge4DailyMajor/ge4DailyMajorbruto.png', (err, lenna) => {
+        if (err) throw err;
+        lenna
+            .crop(70, 680, 1400, 690)
             .quality(100)
             .write('ge4DailyMajor/ge4DailyMajor-pn4.png');
     });
@@ -172,7 +187,7 @@ async function ge4DailyMajor(page) {
     Jimp.read('ge4DailyMajor/ge4DailyMajorbruto.png', (err, lenna) => {
         if (err) throw err;
         lenna
-            .crop(70, 720, 1400, 670)
+            .crop(70, 1390, 1400, 670)
             .quality(100)
             .write('ge4DailyMajor/ge4DailyMajor-nf4.png');
     });
@@ -180,7 +195,7 @@ async function ge4DailyMajor(page) {
     Jimp.read('ge4DailyMajor/ge4DailyMajorbruto.png', (err, lenna) => {
         if (err) throw err;
         lenna
-            .crop(70, 1390, 1400, 870)
+            .crop(70, 2060, 1400, 870)
             .quality(100)
             .write('ge4DailyMajor/ge4DailyMajor-ge4.png');
     });
@@ -198,7 +213,7 @@ async function ge4DailyMajor(page) {
 }
 
 async function ge4UnixServerDetails(page) {
-    await page.goto(URL_GRAFANA + '/d/c8zN_bZWk/unix-server-details?refresh=15m&orgId=1');
+    await page.goto(URL_GRAFANA + '/d/kmQ8GRDZk/unix-server-details?orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
     await page.waitFor(2000)
     await page.evaluate(() => {
