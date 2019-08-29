@@ -13,13 +13,12 @@ var slackController = Botkit.slackbot({ clientSigningSecret: process.env.SLACK_S
 var slackBot = slackController.spawn({
     token: process.env.SLACK_TOKEN
 });
-
+slackBot.startRTM();
 // cron.schedule('0 21,6,14 20,21,22,23,24,25,26,27,28,29,30 * *', async () => {
-console.log('processing...');
+//     console.log('processing...');
 slackBot.say({
-    text: "Gerdau Reports " + new Date().toDateString() + " " + new Date().toTimeString(),
-    channel: 'GLBRP08AJ'
-    // channel: 'GC0CCAJFM'
+    text: "Gerdau Reports " + new Date().toLocaleString('pt-BR', { timeZone: "America/Sao_Paulo" }),
+    channel: 'GC0CCAJFM'
 }, (err, any) => {
     slackBot.replyInThread(any, ':waitingmaas: Give me some time to get all the information from Grafana :construction-2:', (err, res) => {
         exec('node server.js', (err, stdout, stderr) => {
@@ -52,7 +51,6 @@ slackBot.say({
             ])
         })
     })
-
 });
 // }, {
 //         scheduled: true,
@@ -200,7 +198,7 @@ async function uploadTheFiles(bot, channel, thread_ts, message, images) {
 //     })
 // });
 
-slackBot.startRTM();
+
 // slackBot.say({
 //     text: "Gerdau Reports " + new Date().toDateString(),
 //     channel: 'GLBRP08AJ'

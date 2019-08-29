@@ -37,7 +37,7 @@ async function main() {
     await ge4Dashboard(page)
 
     await browser.close();
-    await sleep(20000)
+    await sleep(30000)
 
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
@@ -48,7 +48,7 @@ async function main() {
     await ge4MonthEnd(page)
 
     await browser.close();
-    await sleep(20000)
+    await sleep(30000)
 
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
@@ -60,7 +60,7 @@ async function main() {
     await ge4DailyMajor(page)
 
     await browser.close();
-    await sleep(20000)
+    await sleep(30000)
 
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
@@ -71,7 +71,7 @@ async function main() {
     await ge4UnixServerDetails(page)
 
     await browser.close();
-    await sleep(20000)
+    await sleep(30000)
 
     browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
@@ -102,7 +102,7 @@ async function ge4MonthEnd(page) {
         }
         return "foi"
     })
-    await page.waitFor(20000)
+    await page.waitFor(30000)
     await page.screenshot({ path: 'ge4MonthEnd/ge4bruto.png' });
 
     Jimp.read('ge4MonthEnd/ge4bruto.png', (err, lenna) => {
@@ -165,7 +165,7 @@ async function ge4DailyMajor(page) {
         }
         return "foi"
     })
-    await page.waitFor(20000)
+    await page.waitFor(30000)
     await page.screenshot({ path: 'ge4DailyMajor/ge4DailyMajorbruto.png' });
 
     Jimp.read('ge4DailyMajor/ge4DailyMajorbruto.png', (err, lenna) => {
