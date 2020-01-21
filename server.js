@@ -16,8 +16,9 @@ const sleep = (milliseconds) => {
 
 async function loginGrafana(page) {
     await page.setViewport({ width: 1466, height: 1100 });
-    await page.goto(URL_GRAFANA + '/login');
-    await page.type("[name='username']", USERNAME_GRAFANA)
+    await page.goto(URL_GRAFANA + '/login', { timeout: 0 });
+    await page.waitForSelector('[name="user"]', { timeout: 0 });
+    await page.type("[name='user']", USERNAME_GRAFANA)
     await page.type("[name='password']", PASSWORD_GRAFANA)
     await page.evaluate(() => {
         document.querySelectorAll('button')[0].click()
@@ -26,7 +27,7 @@ async function loginGrafana(page) {
     return "foi"
 }
 async function main() {
-    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false, ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
 
     await loginGrafana(page)
@@ -86,14 +87,14 @@ async function main() {
 }
 
 async function ge4Dashboard(page) {
-    await page.goto(URL_GRAFANA + '/d/BxB9WRDZk/ge4-dashboard');
+    await page.goto(URL_GRAFANA + '/d/uZbVeVBZz/ge4-dashboard');
     await page.waitFor(10000)
     await page.screenshot({ path: 'ge4Dashboard/ge4-dashboard.png' });
     return true;
 }
 
 async function ge4MonthEnd(page) {
-    await page.goto(URL_GRAFANA + '/d/AbCPWY9ik/gerdau-month-end-dashboard-v1?refresh=5m&orgId=1');
+    await page.goto(URL_GRAFANA + '/d/AbCPWY9ik/gerdau-month-end-dashboard-v1');
     await page.setViewport({ width: 1466, height: 4100 });
     await page.waitFor(2000)
     await page.evaluate(() => {
@@ -156,7 +157,7 @@ async function ge4MonthEnd(page) {
 }
 
 async function ge4DailyMajor(page) {
-    await page.goto(URL_GRAFANA + '/d/OpM_ZRvWk/daily-major-environments-overview?refresh=15m&orgId=1');
+    await page.goto(URL_GRAFANA + '/d/_AS6gSfWz/daily-major-environments-overview');
     await page.setViewport({ width: 1466, height: 4100 });
     await page.waitFor(2000)
     await page.evaluate(() => {
@@ -253,7 +254,7 @@ async function ge4UnixServerDetails(page) {
 }
 
 async function ge4NetworkStatus(page) {
-    await page.goto(URL_GRAFANA + '/d/66UW_bWWz/network-status?refresh=5s&orgId=1');
+    await page.goto(URL_GRAFANA + '/d/TpEpfrFZz/network-status?orgId=1');
     await page.setViewport({ width: 1466, height: 4100 });
     await page.waitFor(2000)
     await page.evaluate(() => {

@@ -17,9 +17,9 @@ cron.schedule('*/20 * * * *', async () => {
     // await page.goto("https://ismmetrics.herokuapp.com/");
     browser.close();
 }, {
-        scheduled: true,
-        timezone: "America/Sao_Paulo"
-    });
+    scheduled: true,
+    timezone: "America/Sao_Paulo"
+});
 
 
 // Configure your bot.
@@ -67,9 +67,9 @@ cron.schedule('0 21,6,14 01,02,03,04,05,06,07,20,21,22,23,24,25,26,27,28,29,30 *
         })
     });
 }, {
-        scheduled: true,
-        timezone: "America/Sao_Paulo"
-    })
+    scheduled: true,
+    timezone: "America/Sao_Paulo"
+})
 
 
 async function uploadTheFiles(bot, channel, thread_ts, message, images) {
