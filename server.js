@@ -27,7 +27,7 @@ async function loginGrafana(page) {
     return "foi"
 }
 async function main() {
-    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false, ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
+    browser = await pptrFirefox.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: true, ignoreHTTPSErrors: true, waitUntil: ['load', 'domcontentloaded'] });
     page = await browser.newPage();
 
     await loginGrafana(page)
